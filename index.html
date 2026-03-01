@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>💻 Muhammad Rauf - Full Stack Developer</title>
+    
+    <!-- Professional Developer Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%238B5CF6;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23A78BFA;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23grad)'/%3E%3Ctext x='50' y='70' font-family='monospace' font-size='60' font-weight='bold' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <!-- Google Fonts - Premium Typography -->
+<!-- Poppins Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- GSAP Core + Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    
+    <style>
+:root {
+    --light-purple: #A78BFA;
+    --dark-purple: #614c83;
+    --purple: #bdaedf;
+    --ultra-dark: #0F0F0F;
+    --netflix-black: #141414;
+    --netflix-dark: #0A0A0A;
+    --netflix-gray: #2F2F2F;
+    --netflix-white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+   font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+    background: var(--ultra-dark);
+    color: var(--netflix-white);
+}
+
+/* ================================
+   CINEMATIC LOADER - PURPLE THEME
+================================ */
+.netflix-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    overflow: hidden;
+}
+
+.loader-content {
+    text-align: center;
+    position: relative;
+}
+
+.loader-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #FFF;
+    opacity: 0;
+    position: relative;
+    text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+}
+
+.loader-logo span {
+    display: inline-block;
+}
+
+.loader-subtitle {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    color: var(--light-purple);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-top: 1.5rem;
+    opacity: 0;
+    font-weight: 600;
+}
+
+.loader-progress-container {
+    width: 80%;
+    max-width: 500px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 3rem auto 0;
+    border-radius: 10px;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.loader-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--dark-purple), var(--light-purple));
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+
+.loader-scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.5), transparent);
+    animation: scanline 3s linear infinite;
+}
+
+@keyframes scanline {
+    0%, 100% { transform: translateY(-100vh); }
+    50% { transform: translateY(100vh); }
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+.main-content {
+    opacity: 0;
+}
+
+/* ================================
+   PURPLE BACKGROUND WITH PARTICLES
+================================ */
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, var(--ultra-dark) 0%, #1a0a2e 50%, var(--ultra-dark) 100%);
+}
+
+.animated-bg::before,
+.animated-bg::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.2;
+    filter: blur(80px);
+}
+
+.animated-bg::before {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--dark-purple) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    animation: float 20s ease-in-out infinite;
+}
+
+.animated-bg::after {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--light-purple) 0%, transparent 70%);
+    bottom: -150px;
+    left: -150px;
+    animation: float 15s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+        transform: translate(50px, -50px) rotate(120deg);
+    }
+    66% {
+        transform: translate(-30px, 30px) rotate(240deg);
+    }
+}
+
+/* GSAP Particles Canvas */
+.particles-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--light-purple);
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+/* Scroll Progress */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--dark-purple), var(--light-purple));
+    z-index: 9999;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+/* Navbar - Purple Theme */
+.navbar {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%) !important;
+    padding: 1.5rem 0;
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    background: rgba(20, 20, 20, 0.98) !important;
+    backdrop-filter: blur(20px);
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(139, 92, 246, 0.3);
+}
+
+.navbar-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--light-purple) !important;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.logo-placeholder {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--dark-purple), var(--light-purple));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 900;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.navbar-nav .nav-link {
+    color: #FFF !important;
+    margin: 0 1.2rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--light-purple);
+    transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 100%;
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--light-purple) !important;
+}
+/* Hero Badge */
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.5rem;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(167, 139, 250, 0.3);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--light-purple);
+    letter-spacing: 0.05em;
+}
+
+/* Hero Description */
+.hero-desc {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Hero Highlights List */
+.hero-highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.hero-highlights li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 0.8rem 1.2rem;
+    background: rgba(139, 92, 246, 0.05);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.hero-highlights li:hover {
+    background: rgba(139, 92, 246, 0.1);
+    border-color: rgba(167, 139, 250, 0.3);
+    transform: translateX(5px);
+}
+
+.hero-highlights li i {
+    color: var(--light-purple);
+    font-size: 1rem;
+}
+
+/* Hero Image - No Floating */
+.hero-image {
+    position: relative;
+}
+
+.hero-image img {
+    max-width: 450px;
+    width: 100%;
+    border-radius: 20px;
+    border: 3px solid rgba(139, 92, 246, 0.3);
+    box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+
+}
+
+.hero-image:hover img {
+    transform: scale(1.05);
+    box-shadow: 0 30px 80px rgba(139, 92, 246, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-highlights {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-badge {
+        font-size: 0.85rem;
+        padding: 0.5rem 1.2rem;
+    }
+    
+    .hero-desc {
+        font-size: 1rem;
+    }
+    
+    .hero-highlights li {
+        font-size: 0.9rem;
+        padding: 0.7rem 1rem;
+    }
+}
+
+/* Modern Buttons - Purple Theme */
+.modern-btn {
+    padding: 15px 40px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+}
+
+.btn-primary-glass {
+    background: var(--dark-purple);
+    color: #FFF;
+    box-shadow: 0 10px 30px rgba(109, 40, 217, 0.3);
+}
+
+.btn-primary-glass:hover {
+    background: var(--purple);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
+}
+
+.btn-outline-glass {
+    background: transparent;
+    color: #FFF;
+    border: 2px solid rgba(167, 139, 250, 0.5);
+}
+
+.btn-outline-glass:hover {
+    background: rgba(167, 139, 250, 0.1);
+    border-color: var(--light-purple);
+    transform: translateY(-3px);
+}
+
+/* Glass Cards - Purple Theme */
+.glass-card {
+    background: rgba(139, 92, 246, 0.05);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: all 0.4s ease;
+}
+
+.glass-card:hover {
+    background: rgba(139, 92, 246, 0.08);
+    border-color: rgba(167, 139, 250, 0.4);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(139, 92, 246, 0.3);
+}
+
+/* Section Styles */
+section {
+    padding: 120px 0;
+}
+
+.section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    margin-bottom: 4rem;
+    background: linear-gradient(135deg, #FFF 0%, var(--light-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* About Icons */
+.about-icon {
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, var(--dark-purple), var(--light-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+}
+
+/* Skills */
+.skill-card {
+    background: rgba(139, 92, 246, 0.05);
+    backdrop-filter: blur(20px);
+    padding: 1.8rem;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    transition: all 0.3s ease;
+}
+
+.skill-card:hover {
+    border-color: var(--light-purple);
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+}
+
+.skill-name {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--light-purple);
+}
+
+.skill-bar {
+    height: 10px;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--dark-purple), var(--light-purple));
+    border-radius: 10px;
+    width: 0;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+/* Projects Section */
+#projects {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, transparent 100%);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.project-card {
+    background: rgba(139, 92, 246, 0.03);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    cursor: pointer;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(167, 139, 250, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+}
+
+.project-card:hover::before {
+    opacity: 1;
+}
+
+.project-card:hover {
+    transform: translateY(-15px) scale(1.02);
+    border-color: var(--light-purple);
+    box-shadow: 0 30px 80px rgba(139, 92, 246, 0.3);
+}
+
+.project-image-container {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--netflix-gray), #1a1a1a);
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.1);
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-number {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(167, 139, 250, 0.1);
+    line-height: 1;
+    z-index: 2;
+}
+
+.project-info {
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.project-category {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid var(--light-purple);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--light-purple);
+    margin-bottom: 1rem;
+}
+
+.project-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.8rem;
+    color: #FFF;
+}
+
+.project-tech {
+    color: var(--light-purple);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.project-description {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.project-tag {
+    padding: 0.4rem 0.9rem;
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--light-purple);
+    transition: all 0.3s ease;
+}
+
+.project-tag:hover {
+    background: rgba(139, 92, 246, 0.25);
+    border-color: var(--purple);
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.8rem;
+    background: rgba(139, 92, 246, 0.1);
+    border: 2px solid var(--light-purple);
+    border-radius: 5px;
+    color: #FFF;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.project-link:hover {
+    background: var(--dark-purple);
+    color: #FFF;
+    transform: translateX(5px);
+}
+
+.project-link i {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.project-link:hover i {
+    transform: translateX(3px);
+}
+
+/* Timeline - Purple Theme */
+.timeline {
+    position: relative;
+    padding: 3rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--dark-purple), var(--light-purple));
+}
+
+.timeline-item {
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.timeline-content {
+    background: rgba(139, 92, 246, 0.05);
+    backdrop-filter: blur(20px);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    width: 45%;
+    transition: all 0.4s ease;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    margin-left: auto;
+}
+
+.timeline-content:hover {
+    border-color: var(--light-purple);
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
+}
+
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, var(--dark-purple), var(--light-purple));
+    border-radius: 50%;
+    border: 4px solid var(--ultra-dark);
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+    z-index: 2;
+}
+
+.timeline-date {
+    color: var(--light-purple);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-title {
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+}
+
+/* Experience */
+.experience-card {
+    background: rgba(139, 92, 246, 0.05);
+    backdrop-filter: blur(20px);
+    padding: 2.5rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    border-left: 5px solid var(--light-purple);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-left: 5px solid var(--light-purple);
+    transition: all 0.4s ease;
+}
+
+.experience-card:hover {
+    transform: translateX(15px);
+    border-left-color: var(--dark-purple);
+    box-shadow: 0 15px 50px rgba(139, 92, 246, 0.3);
+}
+
+/* Contact */
+.contact-card {
+    background: rgba(139, 92, 246, 0.05);
+    backdrop-filter: blur(20px);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.contact-card:hover {
+    background: rgba(139, 92, 246, 0.08);
+    border-color: var(--light-purple);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(139, 92, 246, 0.3);
+}
+
+.contact-card i {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--dark-purple), var(--light-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Social Links - 360° Rotation Hover */
+.social-links a {
+    display: inline-flex;
+    width: 55px;
+    height: 55px;
+    background: rgba(139, 92, 246, 0.1);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: #FFF;
+    margin: 0 0.6rem;
+    font-size: 1.4rem;
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    transition: all 0.4s ease;
+}
+
+.social-links a:hover {
+    background: var(--dark-purple);
+    border-color: var(--light-purple);
+    transform: translateY(-10px) rotate(360deg);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
+}
+
+/* Footer */
+footer {
+    background: var(--netflix-dark);
+    border-top: 1px solid rgba(139, 92, 246, 0.2);
+    padding: 3rem 0;
+    text-align: center;
+}
+
+/* Tech Tags */
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.tech-tag {
+    padding: 0.5rem 1.2rem;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--light-purple);
+    transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: var(--purple);
+    transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .hero-content h1 {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+    }
+    
+    .hero-image {
+        margin-top: 3rem;
+    }
+    
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 30px;
+    }
+    
+    .timeline-content {
+        width: calc(100% - 80px);
+        margin-left: 80px !important;
+    }
+    
+    .timeline-dot {
+        left: 30px;
+    }
+    
+    .navbar-nav .nav-link {
+        margin: 0.8rem 0;
+    }
+    
+    section {
+        padding: 80px 0;
+    }
+    
+    .project-image-container {
+        height: 250px;
+    }
+    
+    .hero-image img {
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 576px) {
+    .modern-btn {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-image img {
+        max-width: 300px;
+    }
+}
+
+/* Scroll Animations */
+.fade-in, .slide-left, .slide-right, .zoom-in {
+    opacity: 0;
+}
+    </style>
+</head>
+<body class="loading">
+    
+    <!-- Cinematic Loader - Purple Theme -->
+    <div class="netflix-loader">
+        <div class="loader-scanline"></div>
+        <div class="loader-content">
+            <div class="loader-logo">
+                <span>M</span><span>U</span><span>H</span><span>A</span><span>M</span><span>M</span><span>A</span><span>D</span>
+                <br>
+                <span style="color: var(--light-purple);">R</span><span style="color: var(--light-purple);">A</span><span style="color: var(--light-purple);">U</span><span style="color: var(--light-purple);">F</span>
+            </div>
+            <div class="loader-subtitle">Full Stack Developer</div>
+            <div class="loader-progress-container">
+                <div class="loader-progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Animated Background -->
+        <div class="animated-bg"></div>
+        
+        <!-- GSAP Particles Canvas -->
+        <div class="particles-canvas" id="particles"></div>
+        
+        <!-- Scroll Progress Bar -->
+        <div id="scroll-progress"></div>
+        
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#home">
+                    <div class="logo-placeholder">R</div>
+                 
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Hero Section -->
+      <!-- Hero Section - Modern Enhanced -->
+<section id="home" class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 hero-content">
+                <div class="hero-badge mb-3">
+                    <i class="fas fa-code me-2"></i>
+                    <span>Full Stack Developer</span>
+                </div>
+                <h1>MUHAMMAD<br>RAUF</h1>
+                <p class="hero-desc">A Frontend development specialist crafting powerful full-stack applications with cutting-edge frontend technologies and robust PHP Laravel backends. Transforming complex ideas into scalable, elegant, and user-centric digital solutions that drive business growth.</p>
+                
+                <ul class="hero-highlights">
+                    <li><i class="fas fa-check-circle"></i> Modern UI/UX Design</li>
+                    <li><i class="fas fa-check-circle"></i> Responsive Development</li>
+                    <li><i class="fas fa-check-circle"></i> Backend API Integration</li>
+                    <li><i class="fas fa-check-circle"></i> Performance Optimization</li>
+                    <li><i class="fas fa-check-circle"></i> Clean Code Architecture</li>
+                </ul>
+                
+                <div class="mt-4 d-flex flex-wrap gap-3">
+                    <button class="modern-btn btn-primary-glass" onclick="location.href='#projects'">
+                        <i class="fas fa-rocket me-2"></i>Explore Projects
+                    </button>
+                    <button class="modern-btn btn-outline-glass" onclick="location.href='#contact'">
+                        <i class="fas fa-envelope me-2"></i>Get In Touch
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-6 hero-image text-center">
+                <img src="rauf.jpeg" alt="Muhammad Rauf - Full Stack Developer">
+            </div>
+        </div>
+    </div>
+</section>
+        
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <h2 class="section-title fade-in">ABOUT ME</h2>
+                <div class="row mt-5 g-4">
+                    <div class="col-lg-4 col-md-6 zoom-in">
+                        <div class="glass-card text-center">
+                            <i class="fas fa-code about-icon"></i>
+                            <h4>Frontend Mastery</h4>
+                            <p>Expert in creating stunning, responsive user interfaces with modern Html, modern js, and modern CSS frameworks.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 zoom-in">
+                        <div class="glass-card text-center">
+                            <i class="fas fa-server about-icon"></i>
+                            <h4>Backend Excellence</h4>
+                            <p>Building robust, scalable backend systems with PHP Laravel. RESTful APIs and secure authentication systems.</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 zoom-in">
+                        <div class="glass-card text-center">
+                            <i class="fas fa-rocket about-icon"></i>
+                            <h4>Full-Stack Solutions</h4>
+                            <p>End-to-end development expertise combining frontend finesse with backend power.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skills Section -->
+        <section id="skills">
+            <div class="container">
+                <h2 class="section-title fade-in">TECHNICAL ARSENAL</h2>
+                
+                <div class="row mt-5">
+                    <div class="col-12 slide-left">
+                        <h3 style="color: var(--light-purple); margin-bottom: 2rem; font-weight: 700;">Frontend Technologies</h3>
+                    </div>
+                    <div class="col-lg-6 slide-left">
+                        <div class="skill-card">
+                            <div class="skill-name">HTML5</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="99"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-name">JavaScript (ES6+)</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-name">CSS3</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="99"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-name">Github</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="97"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 slide-right">
+                        <div class="skill-card">
+                            <div class="skill-name">Bootstrap CSS</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="98"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-name">SASS/SCSS</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="92"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-name">GSAP</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-name">Responsive Design</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="98"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col-12 slide-left">
+                        <h3 style="color: var(--light-purple); margin-bottom: 2rem; font-weight: 700;">Backend Technologies</h3>
+                    </div>
+                    <div class="col-lg-6 slide-left">
+                        <div class="skill-card">
+                            <div class="skill-name">PHP</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="93"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-name">Laravel Framework</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-name">MySQL Database</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="88"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 slide-right">
+                        <div class="skill-card">
+                            <div class="skill-name">REST API</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="92"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-name">Authentication</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="87"></div>
+                            </div>
+                        </div>
+                        <div class="skill-card">
+                            <div class="skill-name">Git & Version Control</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="90"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="container">
+                <h2 class="section-title fade-in">FEATURED PROJECTS</h2>
+                
+                <div class="projects-grid">
+                    <!-- Project 1: JMK Repair Shop -->
+                    <div class="project-card zoom-in">
+                        <div class="project-number">01</div>
+                        <div class="project-image-container">
+                            <img src="9bde2f9b104902dcc74a44a78805a608.jpg" alt="JMK Repair Shop" class="project-image" onerror="this.style.display='none';">
+                            <div class="project-overlay">
+                                <div class="text-white">
+                                    <div class="project-category">Service Website</div>
+                                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 0.5rem;">JMK REPAIR SHOP</h3>
+                                    <p style="opacity: 0.9;">Professional repair services for cars, suitcases,phones and accessories</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-category">Real World Client</div>
+                            <h3 class="project-title">JMK Repair Shop</h3>
+                            <p class="project-tech">HTML5, CSS3, JavaScript, GSAP and Bootstrap</p>
+                            <p class="project-description">A professional and real-world client project offering comprehensive repair solutions for watches, suitcases, bags, and various accessories. Everything can be repaired with expert care and quality service delivery.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">HTML5</span>
+                                <span class="project-tag">CSS3</span>
+                                <span class="project-tag">Bootstrap</span>
+                                <span class="project-tag">Responsive</span>
+                                <span class="project-tag">AI Integration</span>
+                            </div>
+                            <a href="https://jmkrepairs.com/" target="_blank" class="project-link">
+                                View Live Project <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 2: Architectural Vision -->
+                    <div class="project-card zoom-in">
+                        <div class="project-number">02</div>
+                        <div class="project-image-container">
+                            <img src="download2.jpg" alt="Architectural Vision" class="project-image" onerror="this.style.display='none';">
+                            <div class="project-overlay">
+                                <div class="text-white">
+                                    <div class="project-category">Architecture</div>
+                                    <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 0.5rem;">ARCH VISION</h3>
+                                    <p style="opacity: 0.9;">Modern architectural portfolio with stunning visuals</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-info">
+                            <div class="project-category">Real World Project</div>
+                            <h3 class="project-title">Architectural Vision</h3>
+                            <p class="project-tech">Modern HTML, Next-Level CSS & JavaScript</p>
+                            <p class="project-description">A real-world architectural project showcasing modern design principles, stunning visual presentations, and seamless user experience. Built with cutting-edge frontend technologies for maximum performance.</p>
+                            <div class="project-tags">
+                                <span class="project-tag">HTML5</span>
+                                <span class="project-tag">Advanced CSS</span>
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">Bootstrap</span>
+                                <span class="project-tag">AI Powered</span>
+                            </div>
+                            <a href="https://raufdev000.github.io/Arch-vision/" target="_blank" class="project-link">
+                                View Live Project <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                   <div class="project-card zoom-in">
+    <div class="project-number">03</div>
+    <div class="project-image-container">
+        <img src="solveit_2final-1.webp" alt="Solveituae E-commerce" class="project-image" onerror="this.style.display='none';">
+        <div class="project-overlay">
+            <div class="text-white">
+                <div class="project-category">E-commerce Platform</div>
+                <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 0.5rem;">SOLVEITUAE.COM</h3>
+                <p style="opacity: 0.9;">Premium coffee, raisins & gourmet products marketplace</p>
+            </div>
+        </div>
+    </div>
+    <div class="project-info">
+        <div class="project-category">E-commerce Website</div>
+        <h3 class="project-title">Solveituae.com</h3>
+        <p class="project-tech">Full-Stack E-commerce | PHP Laravel Backend</p>
+        <p class="project-description">A comprehensive e-commerce platform specializing in premium coffee, raisins, and gourmet products. Features include product catalog, shopping cart, secure checkout, payment gateway integration, order management, and responsive design for seamless shopping experience across all devices.</p>
+        <div class="project-tags">
+            <span class="project-tag">Laravel</span>
+            <span class="project-tag">E-commerce</span>
+            <span class="project-tag">Payment Gateway</span>
+            <span class="project-tag">MySQL</span>
+            <span class="project-tag">Bootstrap</span>
+            <span class="project-tag">REST API</span>
+        </div>
+        <a href="https://solveituae.com/" target="_blank" class="project-link">
+            View Live Project <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</div>
+                    </div>
+                  
+                </div>
+            </div>
+        </section>
+        
+        <!-- Education Section -->
+        <section id="education">
+            <div class="container">
+                <h2 class="section-title fade-in">EDUCATION</h2>
+                <div class="timeline mt-5">
+                    <div class="timeline-item slide-right">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <p class="timeline-date">2025 - In Progress</p>
+                            <h4 class="timeline-title">Intermediate / A-Levels</h4>
+                            <p style="color: var(--light-purple); font-weight: 600;">Superior College, RYK</p>
+                            <p>Focused on computer science, mathematics, and English. Developed strong analytical and problem-solving skills.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item slide-left">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <p class="timeline-date">2022 - 2024</p>
+                            <h4 class="timeline-title">Matriculation / O-Levels</h4>
+                            <p style="color: var(--light-purple); font-weight: 600;">Muslim Scholar School Systems, RYK</p>
+                            <p>Built foundation in science and technology with excellent academic performance & learned next-level discipline.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Experience Section -->
+        <section id="experience">
+            <div class="container">
+                <h2 class="section-title fade-in">WORK EXPERIENCE</h2>
+                <div class="row mt-5">
+                    <div class="col-lg-12 fade-in">
+                        <div class="experience-card">
+                            <h4 style="color: var(--light-purple); font-weight: 800; font-size: 1.5rem;">Full Stack Developer</h4>
+                            <p style="color: var(--light-purple); font-weight: 600; margin-bottom: 1rem;">Promoteez International | 2025</p>
+                            <p style="margin-bottom: 1rem;">Built responsive web applications with Laravel backend and CSS, JS frontend. Collaborated with cross-functional teams and made real-world projects.</p>
+                            <ul style="color: rgba(255,255,255,0.8);">
+                                <li>• I specialize in crafting modern, responsive, and visually engaging user interfaces.</li>
+                                <li>• I build dynamic web experiences using the latest tools and best UI/UX practices.</li>
+                                <li>• My frontend work focuses on clean structure, smooth interactions, and pixel-perfect design.</li>
+                                <li>• Alongside frontend, I develop efficient backend systems with strong logic and clean architecture.</li>
+                            </ul>
+                            <div class="tech-tags mt-3">
+                                <span class="tech-tag">Laravel</span>
+                                <span class="tech-tag">Bootstrap</span>
+                                <span class="tech-tag">REST API</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">Git</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title fade-in">GET IN TOUCH</h2>
+                <div class="row mt-5 g-4">
+                    <div class="col-lg-4 col-md-6 zoom-in">
+                        <div class="contact-card">
+                            <i class="fas fa-envelope"></i>
+                            <h5 style="font-weight: 700; margin-bottom: 1rem;">Email</h5>
+                            <p style="color: var(--light-purple); font-weight: 600;">g2063074@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 zoom-in">
+                        <div class="contact-card">
+                            <i class="fab fa-whatsapp"></i>
+                            <h5 style="font-weight: 700; margin-bottom: 1rem;">WhatsApp</h5>
+                            <p style="color: var(--light-purple); font-weight: 600;">+92 308 7342284</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 zoom-in">
+                        <div class="contact-card">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h5 style="font-weight: 700; margin-bottom: 1rem;">Location</h5>
+                            <p style="color: var(--light-purple); font-weight: 600;">Rahim Yar Khan, Punjab, Pakistan</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4 fade-in">
+                    <div class="col-12 text-center">
+                        <h4 style="margin-bottom: 2rem; font-weight: 700;">CONNECT WITH ME</h4>
+                        <div class="social-links">
+                            <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p style="font-size: 1.1rem; margin-bottom: 0.5rem;">&copy; 2025 Muhammad Rauf. All Rights Reserved.</p>
+                <p style="color: var(--light-purple);">Crafted with <i class="fas fa-heart" style="color: var(--light-purple);"></i> and <i class="fas fa-code" style="color: var(--light-purple);"></i> by Muhammad Rauf</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- GSAP Animations with Particles -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        
+        // ================================
+        // GSAP PARTICLES ANIMATION
+        // ================================
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 50;
+        
+        // Create particles
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particlesContainer.appendChild(particle);
+            
+            // Animate each particle
+            gsap.to(particle, {
+                y: -Math.random() * window.innerHeight,
+                x: (Math.random() - 0.5) * 100,
+                opacity: Math.random() * 0.5 + 0.3,
+                duration: Math.random() * 10 + 10,
+                repeat: -1,
+                ease: 'none'
+            });
+        }
+        
+        // ================================
+        // CINEMATIC LOADER
+        // ================================
+        window.addEventListener('load', function() {
+            const loaderTimeline = gsap.timeline({
+                onComplete: () => {
+                    document.body.classList.remove('loading');
+                }
+            });
+            
+            loaderTimeline
+                .to('.loader-logo span', {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.05,
+                    duration: 0.6,
+                    ease: 'power3.out'
+                })
+                .to('.loader-subtitle', {
+                    opacity: 1,
+                    duration: 0.5
+                }, '-=0.3')
+                .to('.loader-progress-container', {
+                    opacity: 1,
+                    duration: 0.3
+                }, '-=0.2')
+                .to('.loader-progress-bar', {
+                    width: '100%',
+                    duration: 1.5,
+                    ease: 'power2.inOut'
+                }, '-=0.1')
+                .to('.loader-logo', {
+                    scale: 1.2,
+                    duration: 0.3,
+                    ease: 'back.in(2)'
+                })
+                .to('.netflix-loader', {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => {
+                        document.querySelector('.netflix-loader').style.display = 'none';
+                    }
+                })
+                .to('.main-content', {
+                    opacity: 1,
+                    duration: 0.8
+                }, '-=0.3')
+                .from('.hero-content h1', {
+                    opacity: 0,
+                    y: 100,
+                    duration: 1,
+                    ease: 'power3.out'
+                }, '-=0.5')
+                .from('.hero-content p', {
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.8
+                }, '-=0.6')
+                .from('.hero-content .modern-btn', {
+                    opacity: 0,
+                    scale: 0,
+                    stagger: 0.2,
+                    duration: 0.6,
+                    ease: 'back.out(2)'
+                }, '-=0.4')
+                .from('.hero-image img', {
+                    opacity: 0,
+                    scale: 0.8,
+                    duration: 1,
+                    ease: 'power3.out'
+                }, '-=0.8');
+        });
+        
+        // ================================
+        // SCROLL PROGRESS BAR
+        // ================================
+        gsap.to('#scroll-progress', {
+            width: '100%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: document.body,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 0.3
+            }
+        });
+        
+        // ================================
+        // NAVBAR SCROLL EFFECT
+        // ================================
+        const navbar = document.querySelector('.navbar');
+        ScrollTrigger.create({
+            start: 'top -50',
+            end: 99999,
+            toggleClass: { targets: navbar, className: 'scrolled' }
+        });
+        
+        // ================================
+        // SMOOTH SCROLL NAVIGATION
+        // ================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    gsap.to(window, {
+                        duration: 1.2,
+                        scrollTo: { y: target, offsetY: 80 },
+                        ease: 'power3.inOut'
+                    });
+                    
+                    const navbarCollapse = document.querySelector('.navbar-collapse');
+                    if (navbarCollapse.classList.contains('show')) {
+                        const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+                        bsCollapse.hide();
+                    }
+                }
+            });
+        });
+        
+        // ================================
+        // SCROLL REVEAL ANIMATIONS
+        // ================================
+        gsap.utils.toArray('.fade-in').forEach(element => {
+            gsap.fromTo(element,
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+        
+        gsap.utils.toArray('.slide-left').forEach(element => {
+            gsap.fromTo(element,
+                { opacity: 0, x: -100 },
+                {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.8,
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+        
+        gsap.utils.toArray('.slide-right').forEach(element => {
+            gsap.fromTo(element,
+                { opacity: 0, x: 100 },
+                {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.8,
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+        
+        gsap.utils.toArray('.zoom-in').forEach(element => {
+            gsap.fromTo(element,
+                { opacity: 0, scale: 0.8 },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+        
+        // ================================
+        // SKILL BARS ANIMATION
+        // ================================
+        document.querySelectorAll('.skill-progress').forEach(bar => {
+            const progress = bar.getAttribute('data-progress');
+            gsap.fromTo(bar,
+                { width: '0%' },
+                {
+                    width: progress + '%',
+                    duration: 1.5,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: bar,
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+        
+        // ================================
+        // ACTIVE NAV LINK ON SCROLL
+        // ================================
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        sections.forEach(section => {
+            ScrollTrigger.create({
+                trigger: section,
+                start: 'top 200px',
+                end: 'bottom 200px',
+                onEnter: () => updateActiveLink(section.id),
+                onEnterBack: () => updateActiveLink(section.id)
+            });
+        });
+        
+        function updateActiveLink(id) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        console.log('🎨 Purple-Themed Portfolio with GSAP Particles Loaded');
+    </script>
+</body>
+</html>
